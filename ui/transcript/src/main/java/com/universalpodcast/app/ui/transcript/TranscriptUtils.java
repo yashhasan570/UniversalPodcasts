@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.io.InterruptedIOException;
 import java.nio.charset.Charset;
 import com.universalpodcast.app.model.feed.FeedMedia;
-import com.universalpodcast.app.net.common.AntennapodHttpClient;
+import com.universalpodcast.app.net.common.UniversalPodcastHttpClient;
 import com.universalpodcast.app.model.feed.Transcript;
 import com.universalpodcast.app.parser.transcript.TranscriptParser;
 import okhttp3.CacheControl;
@@ -39,7 +39,7 @@ public class TranscriptUtils {
         try {
             Log.d(TAG, "Downloading transcript URL " + url);
             Request request = new Request.Builder().url(url).cacheControl(cacheControl).build();
-            response = AntennapodHttpClient.getHttpClient().newCall(request).execute();
+            response = UniversalPodcastHttpClient.getHttpClient().newCall(request).execute();
             if (response.isSuccessful() && response.body() != null) {
                 Log.d(TAG, "Done Downloading transcript URL " + url);
                 str.append(response.body().string());

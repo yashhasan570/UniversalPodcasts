@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import androidx.fragment.app.DialogFragment;
-import com.universalpodcast.app.net.common.AntennapodHttpClient;
+import com.universalpodcast.app.net.common.UniversalPodcastHttpClient;
 import com.universalpodcast.app.net.sync.serviceinterface.SynchronizationProvider;
 import com.universalpodcast.app.net.sync.serviceinterface.SynchronizationQueue;
 import com.universalpodcast.app.storage.preferences.SynchronizationCredentials;
@@ -44,12 +44,12 @@ public class NextcloudAuthenticationFragment extends DialogFragment
         dialog.setView(viewBinding.getRoot());
 
         viewBinding.chooseHostButton.setOnClickListener(v -> {
-            nextcloudLoginFlow = new NextcloudLoginFlow(AntennapodHttpClient.getHttpClient(),
+            nextcloudLoginFlow = new NextcloudLoginFlow(UniversalPodcastHttpClient.getHttpClient(),
                     viewBinding.serverUrlText.getText().toString(), getContext(), this);
             startLoginFlow();
         });
         if (savedInstanceState != null && savedInstanceState.getStringArrayList(EXTRA_LOGIN_FLOW) != null) {
-            nextcloudLoginFlow = NextcloudLoginFlow.fromInstanceState(AntennapodHttpClient.getHttpClient(),
+            nextcloudLoginFlow = NextcloudLoginFlow.fromInstanceState(UniversalPodcastHttpClient.getHttpClient(),
                     getContext(), this, savedInstanceState.getStringArrayList(EXTRA_LOGIN_FLOW));
             startLoginFlow();
         }

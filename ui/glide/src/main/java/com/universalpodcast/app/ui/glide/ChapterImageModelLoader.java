@@ -19,7 +19,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 
-import com.universalpodcast.app.net.common.AntennapodHttpClient;
+import com.universalpodcast.app.net.common.UniversalPodcastHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import org.apache.commons.io.IOUtils;
@@ -94,7 +94,7 @@ public final class ChapterImageModelLoader implements ModelLoader<EmbeddedChapte
                     httpReq.header("Range", "bytes=" + image.getPosition()
                             + "-" + (image.getPosition() + image.getLength()));
                     httpReq.url(image.getMedia().getStreamUrl());
-                    Response response = AntennapodHttpClient.getHttpClient().newCall(httpReq.build()).execute();
+                    Response response = UniversalPodcastHttpClient.getHttpClient().newCall(httpReq.build()).execute();
                     if (!response.isSuccessful() || response.body() == null) {
                         throw new IOException("Invalid response: " + response.code() + " " + response.message());
                     }

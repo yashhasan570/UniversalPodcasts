@@ -1,6 +1,6 @@
 package com.universalpodcast.app.net.discovery;
 
-import com.universalpodcast.app.net.common.AntennapodHttpClient;
+import com.universalpodcast.app.net.common.UniversalPodcastHttpClient;
 import com.universalpodcast.app.net.common.UserAgentInterceptor;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -44,7 +44,7 @@ public class PodcastIndexPodcastSearcher implements PodcastSearcher {
             String formattedUrl = String.format(SEARCH_API_URL, encodedQuery);
             List<PodcastSearchResult> podcasts = new ArrayList<>();
             try {
-                OkHttpClient client = AntennapodHttpClient.getHttpClient();
+                OkHttpClient client = UniversalPodcastHttpClient.getHttpClient();
                 Response response = client.newCall(buildAuthenticatedRequest(formattedUrl)).execute();
 
                 if (response.isSuccessful()) {

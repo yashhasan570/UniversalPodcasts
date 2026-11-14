@@ -12,7 +12,7 @@ import com.bumptech.glide.load.model.MultiModelLoaderFactory;
 import com.bumptech.glide.signature.ObjectKey;
 import com.universalpodcast.app.model.feed.Feed;
 import com.universalpodcast.app.model.feed.FeedMedia;
-import com.universalpodcast.app.net.common.AntennapodHttpClient;
+import com.universalpodcast.app.net.common.UniversalPodcastHttpClient;
 import com.universalpodcast.app.net.common.NetworkUtils;
 import com.universalpodcast.app.net.common.UserAgentInterceptor;
 import okhttp3.Interceptor;
@@ -41,7 +41,7 @@ class ApOkHttpUrlLoader implements ModelLoader<String, InputStream> {
             if (internalClient == null) {
                 synchronized (Factory.class) {
                     if (internalClient == null) {
-                        OkHttpClient.Builder builder = AntennapodHttpClient.newBuilder();
+                        OkHttpClient.Builder builder = UniversalPodcastHttpClient.newBuilder();
                         builder.interceptors().add(new NetworkAllowanceInterceptor());
                         builder.interceptors().add(new UserAgentInterceptor());
                         builder.cache(null); // Handled by Glide

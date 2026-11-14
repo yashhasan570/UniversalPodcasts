@@ -1,6 +1,6 @@
 package com.universalpodcast.app.net.discovery;
 
-import com.universalpodcast.app.net.common.AntennapodHttpClient;
+import com.universalpodcast.app.net.common.UniversalPodcastHttpClient;
 import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.SingleOnSubscribe;
@@ -31,7 +31,7 @@ public class FyydPodcastSearcher implements PodcastSearcher {
             }
             String formattedUrl = String.format(FYYD_API_URL, encodedQuery);
 
-            OkHttpClient client = AntennapodHttpClient.getHttpClient();
+            OkHttpClient client = UniversalPodcastHttpClient.getHttpClient();
             Request.Builder httpReq = new Request.Builder().url(formattedUrl);
             ArrayList<PodcastSearchResult> searchResults = new ArrayList<>();
             try (Response response = client.newCall(httpReq.build()).execute()) {

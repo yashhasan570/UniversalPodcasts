@@ -11,14 +11,14 @@ import requests
 import time
 
 GRAPHQL_URL = "https://api.github.com/graphql"
-OWNER = os.getenv("OWNER", "AntennaPod")
-REPO = os.getenv("REPO", "AntennaPod")
+OWNER = os.getenv("OWNER", "yashhasan570")
+REPO = os.getenv("REPO", "UniversalPodcasts")
 TOKEN = os.getenv("GITHUB_API_TOKEN")
 BASE = os.getenv("BASE", "")
 HEAD = os.getenv("HEAD", "")
 NEEDS_REVIEW_REPLY_LABEL = os.getenv("NEED_REVIEW_REPLY_LABEL", "Needs: Review reply")
 PLAY_REVIEW_LINK_MARKERS = (
-    "https://play.google.com/apps/publish?account=8008695526664634386#ReviewDetailsPlace:p=de.danoeh.antennapod&reviewid=",
+    "https://play.google.com/apps/publish?account=8008695526664634386#ReviewDetailsPlace:p=com.universalpodcast.app&reviewid=",
     "https://play.google.com/console/u/0/developers/8008695526664634386/app/4974638472012894302/user-feedback/review-details?reviewId=",
 )
 
@@ -297,7 +297,7 @@ def collect_commit_author_logins(commit):
 
 def main():
     global TOKEN
-    print("Hello, welcome to the AntennaPod PR list generator!")
+    print("Hello, welcome to the Universal Podcast PR list generator!")
     print("First, please enter your GitHub API token.")
     print("If you don't have one yet, create it at https://github.com/settings/tokens")
 

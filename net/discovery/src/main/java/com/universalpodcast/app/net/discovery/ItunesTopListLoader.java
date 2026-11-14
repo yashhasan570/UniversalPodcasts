@@ -3,7 +3,7 @@ package com.universalpodcast.app.net.discovery;
 import android.content.Context;
 import android.util.Log;
 import com.universalpodcast.app.model.feed.Feed;
-import com.universalpodcast.app.net.common.AntennapodHttpClient;
+import com.universalpodcast.app.net.common.UniversalPodcastHttpClient;
 import okhttp3.CacheControl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -36,7 +36,7 @@ public class ItunesTopListLoader {
 
     public List<PodcastSearchResult> loadToplist(String country, int limit, List<Feed> subscribed)
             throws JSONException, IOException {
-        OkHttpClient client = AntennapodHttpClient.getHttpClient();
+        OkHttpClient client = UniversalPodcastHttpClient.getHttpClient();
         String feedString;
         String loadCountry = country;
         if (COUNTRY_CODE_UNSET.equals(country)) {

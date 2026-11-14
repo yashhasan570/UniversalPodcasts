@@ -54,7 +54,7 @@ import static com.universalpodcast.app.model.feed.SortOrder.toCodeString;
 public class PodDBAdapter {
 
     private static final String TAG = "PodDBAdapter";
-    public static final String DATABASE_NAME = "Antennapod.db";
+    public static final String DATABASE_NAME = "UniversalPodcast.db";
     public static final int VERSION = 3110000;
 
     /**
@@ -1577,7 +1577,7 @@ public class PodDBAdapter {
     }
 
     /**
-     * Helper class for opening the Antennapod database.
+     * Helper class for opening the Universal Podcast database.
      */
     private static class PodDBHelper extends SQLiteOpenHelper {
         /**

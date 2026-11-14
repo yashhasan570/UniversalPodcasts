@@ -227,7 +227,7 @@
     <string name="download_log_title_unknown">Onbekende titel</string>
     <string name="download_type_feed">Feed</string>
     <string name="download_type_media">Mediabestand</string>
-    <string name="no_feed_url_podcast_found_by_search">De voorgestelde podcast bevat geen RSS link, Antennapod vond mogelijk een alternatief</string>
+    <string name="no_feed_url_podcast_found_by_search">De voorgestelde podcast bevat geen RSS link, Universal Podcast vond mogelijk een alternatief</string>
     <string name="authentication_notification_title">Authenticatie vereist</string>
     <string name="confirm_mobile_download_dialog_title">Bevestig downloaden via mobiel internet</string>
     <string name="confirm_mobile_download_dialog_message">Downloaden via mobiel internet is uitgeschakeld in de instellingen. Universal Podcasts kan de aflevering later downloaden is Wi-Fi beschikbaar is.</string>
@@ -474,7 +474,7 @@
     <string name="opml_import_ask_read_permission">Toegang tot externe locaties is nodig om het OPML-bestand te kunnen lezen</string>
     <string name="successful_import_label">Importeren voltooid</string>
     <string name="import_ok">Druk op \'OK\' om Universal Podcasts opnieuw te starten</string>
-    <string name="import_no_downgrade">Deze database is geëxporteerd door een nieuwere versie van Antennapod. De huidige versie weet nog niet hoe daar mee om te gaan.</string>
+    <string name="import_no_downgrade">Deze database is geëxporteerd door een nieuwere versie van Universal Podcast. De huidige versie weet nog niet hoe daar mee om te gaan.</string>
     <string name="favorites_export_label">Favorieten exporteren</string>
     <string name="favorites_export_summary">Exporteer opgeslagen favorieten naar een bestand</string>
     <!--Sleep timer-->

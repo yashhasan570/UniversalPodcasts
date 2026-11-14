@@ -45,7 +45,7 @@ public abstract class RedirectChecker {
     public static String getNewUrlIfPermanentRedirect(String downloadUrl) {
         try {
             Request httpReq = new Request.Builder().url(downloadUrl).head().build();
-            Response response = AntennapodHttpClient.getHttpClient().newCall(httpReq).execute();
+            Response response = UniversalPodcastHttpClient.getHttpClient().newCall(httpReq).execute();
             return RedirectChecker.getNewUrlIfPermanentRedirect(response);
         } catch (IOException e) {
             e.printStackTrace();
@@ -60,7 +60,7 @@ public abstract class RedirectChecker {
         }
         try {
             Request httpReq = new Request.Builder().url(url).head().build();
-            Response response = AntennapodHttpClient.getHttpClient().newCall(httpReq).execute();
+            Response response = UniversalPodcastHttpClient.getHttpClient().newCall(httpReq).execute();
             response.close();
             return response.request().url().toString();
         } catch (IOException e) {

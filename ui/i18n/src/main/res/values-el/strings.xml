@@ -47,7 +47,7 @@
     <string name="home_continue_title">Συνέχιση ακρόασης</string>
     <string name="home_new_title">Δείτε τι νέο υπάρχει</string>
     <string name="home_downloads_title">Διαχείριση λήψεων</string>
-    <string name="home_welcome_title">Καλώς ορίσατε στο Antennapod!</string>
+    <string name="home_welcome_title">Καλώς ορίσατε στο Universal Podcast!</string>
     <string name="home_welcome_text">Δεν έχετε εγγραφεί ακόμη σε κανένα podcast. Ανοίξτε το μενού για να προσθέσετε ένα podcast.</string>
     <string name="notification_permission_denied">Αρνηθήκατε την άδεια.</string>
     <string name="configure_home">Διαμόρφωση αρχικής οθόνης</string>

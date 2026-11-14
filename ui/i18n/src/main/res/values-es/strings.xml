@@ -248,7 +248,7 @@
     <string name="download_log_title_unknown">Título desconocido</string>
     <string name="download_type_feed">Canal</string>
     <string name="download_type_media">Archivo multimedia</string>
-    <string name="no_feed_url_podcast_found_by_search">El podcast sugerido no tenía un enlace RSS, Antennapod encontró un pódcast que podría coincidir</string>
+    <string name="no_feed_url_podcast_found_by_search">El podcast sugerido no tenía un enlace RSS, Universal Podcast encontró un pódcast que podría coincidir</string>
     <string name="authentication_notification_title">Se necesita autenticación</string>
     <string name="confirm_mobile_download_dialog_title">Confirma la descarga con datos móviles</string>
     <string name="confirm_mobile_download_dialog_message">Se desactivaron las descargas con datos móvil en la configuración. Universal Podcasts puede descargar el episodio automáticamente cuando haya conexión Wi-Fi.</string>

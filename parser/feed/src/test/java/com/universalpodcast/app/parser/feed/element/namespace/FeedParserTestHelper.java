@@ -1,0 +1,35 @@
+package com.universalpodcast.app.parser.feed.element.namespace;
+
+import androidx.annotation.NonNull;
+
+import java.io.File;
+
+import com.universalpodcast.app.model.feed.Feed;
+import com.universalpodcast.app.parser.feed.FeedHandler;
+
+/**
+ * Tests for FeedHandler.
+ */
+public abstract class FeedParserTestHelper {
+
+    /**
+     * Returns the File object for a file in the resources folder.
+     */
+    @NonNull
+    static File getFeedFile(@NonNull String fileName) {
+        //noinspection ConstantConditions
+        return new File(FeedParserTestHelper.class.getClassLoader().getResource(fileName).getFile());
+    }
+
+    /**
+     * Runs the feed parser on the given file.
+     */
+    @NonNull
+    static Feed runFeedParser(@NonNull File feedFile) throws Exception {
+        FeedHandler handler = new FeedHandler();
+        Feed parsedFeed = new Feed("http://example.com/feed", null);
+        parsedFeed.setLocalFileUrl(feedFile.getAbsolutePath());
+        handler.parseFeed(parsedFeed);
+        return parsedFeed;
+    }
+}

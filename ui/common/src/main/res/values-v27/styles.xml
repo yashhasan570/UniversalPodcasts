@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+    <style name="Theme.Universal Podcasts.Dynamic.Light" parent="Theme.Base.Universal Podcasts.Dynamic.Light">
+        <item name="android:windowLightNavigationBar">true</item>
+    </style>
+</resources>

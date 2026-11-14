@@ -1,0 +1,123 @@
+package com.universalpodcast.app.ui.screen.download;
+
+import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.universalpodcast.app.R;
+import com.universalpodcast.app.databinding.DownloadLogFragmentBinding;
+import com.universalpodcast.app.event.DownloadLogEvent;
+import com.universalpodcast.app.model.download.DownloadResult;
+import com.universalpodcast.app.storage.database.DBReader;
+import com.universalpodcast.app.storage.database.DBWriter;
+import com.universalpodcast.app.ui.common.EmptyViewHandler;
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.disposables.Disposable;
+import io.reactivex.rxjava3.schedulers.Schedulers;
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Shows the download log
+ */
+public class DownloadLogFragment extends BottomSheetDialogFragment
+        implements AdapterView.OnItemClickListener, MaterialToolbar.OnMenuItemClickListener {
+    public static final String TAG = "DownloadLogFragment";
+
+    private List<DownloadResult> downloadLog = new ArrayList<>();
+    private DownloadLogAdapter adapter;
+    private Disposable disposable;
+    private DownloadLogFragmentBinding viewBinding;
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        loadDownloadLog();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (disposable != null) {
+            disposable.dispose();
+        }
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        viewBinding = DownloadLogFragmentBinding.inflate(inflater);
+        viewBinding.toolbar.inflateMenu(R.menu.download_log);
+        viewBinding.toolbar.setOnMenuItemClickListener(this);
+
+        EmptyViewHandler emptyView = new EmptyViewHandler(getActivity());
+        emptyView.setIcon(R.drawable.ic_download);
+        emptyView.setTitle(R.string.no_log_downloads_head_label);
+        emptyView.setMessage(R.string.no_log_downloads_label);
+        emptyView.attachToListView(viewBinding.list);
+
+        adapter = new DownloadLogAdapter(getActivity());
+        viewBinding.list.setAdapter(adapter);
+        viewBinding.list.setOnItemClickListener(this);
+        viewBinding.list.setNestedScrollingEnabled(true);
+        EventBus.getDefault().register(this);
+        return viewBinding.getRoot();
+    }
+
+    @Override
+    public void onDestroyView() {
+        EventBus.getDefault().unregister(this);
+        super.onDestroyView();
+        viewBinding = null;
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        final DownloadResult item = adapter.getItem(position);
+        if (item != null) {
+            DownloadLogDetailsDialog.newInstance(item, true)
+                    .show(getParentFragmentManager(), DownloadLogDetailsDialog.TAG);
+        }
+    }
+
+    @Subscribe
+    public void onDownloadLogChanged(DownloadLogEvent event) {
+        loadDownloadLog();
+    }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        if (item.getItemId() == R.id.clear_logs_item) {
+            DBWriter.clearDownloadLog();
+            return true;
+        }
+        return false;
+    }
+
+    private void loadDownloadLog() {
+        if (disposable != null) {
+            disposable.dispose();
+        }
+        disposable = Observable.fromCallable(DBReader::getDownloadLog)
+                .subscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(result -> {
+                    if (result != null) {
+                        downloadLog = result;
+                        adapter.setDownloadLog(downloadLog);
+                    }
+                }, error -> Log.e(TAG, Log.getStackTraceString(error)));
+    }
+}

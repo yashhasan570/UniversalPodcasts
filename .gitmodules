@@ -1,0 +1,5 @@
+[submodule "store-metadata"]
+	path = store-metadata
+	url = https://github.com/yashhasan570/UniversalPodcasts/StoreMetadata.git
+	branch = main
+	shallow = true

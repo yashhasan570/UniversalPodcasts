@@ -1,0 +1,78 @@
+package com.universalpodcast.app.ui.episodeslist;
+
+import android.text.TextUtils;
+import com.universalpodcast.app.net.common.AntennapodHttpClient;
+import com.universalpodcast.app.storage.database.DBWriter;
+import com.universalpodcast.app.net.common.NetworkUtils;
+import com.universalpodcast.app.model.feed.FeedMedia;
+import io.reactivex.rxjava3.core.Single;
+import io.reactivex.rxjava3.core.SingleOnSubscribe;
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.schedulers.Schedulers;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import android.util.Log;
+import okhttp3.Response;
+
+import java.io.File;
+import java.io.IOException;
+
+public abstract class MediaSizeLoader {
+    private static final String TAG = "MediaSizeLoader";
+
+    public static Single<Long> getFeedMediaSizeObservable(FeedMedia media) {
+        return Single.create((SingleOnSubscribe<Long>) emitter -> {
+            if (!NetworkUtils.isEpisodeHeadDownloadAllowed()) {
+                emitter.onSuccess(0L);
+                return;
+            }
+            long size = Integer.MIN_VALUE;
+            if (media.isDownloaded()) {
+                File mediaFile = new File(media.getLocalFileUrl());
+                if (mediaFile.exists()) {
+                    size = mediaFile.length();
+                }
+            } else if (!media.checkedOnSizeButUnknown()) {
+                // only query the network if we haven't already checked
+
+                String url = media.getDownloadUrl();
+                if (TextUtils.isEmpty(url) || !url.startsWith("http")) {
+                    emitter.onSuccess(0L);
+                    return;
+                }
+
+                OkHttpClient client = AntennapodHttpClient.getHttpClient();
+                Request.Builder httpReq = new Request.Builder()
+                        .url(url)
+                        .header("Accept-Encoding", "identity")
+                        .head();
+                try {
+                    Response response = client.newCall(httpReq.build()).execute();
+                    if (response.isSuccessful()) {
+                        String contentLength = response.header("Content-Length");
+                        try {
+                            size = Integer.parseInt(contentLength);
+                        } catch (NumberFormatException e) {
+                            Log.e(TAG, Log.getStackTraceString(e));
+                        }
+                    }
+                } catch (IOException e) {
+                    emitter.onSuccess(0L);
+                    Log.e(TAG, Log.getStackTraceString(e));
+                    return; // better luck next time
+                }
+            }
+            Log.d(TAG, "new size: " + size);
+            if (size <= 0) {
+                // they didn't tell us the size, but we don't want to keep querying on it
+                media.setCheckedOnSizeButUnknown();
+            } else {
+                media.setSize(size);
+            }
+            emitter.onSuccess(size);
+            DBWriter.setMediaDownloadInformation(media);
+        })
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread());
+    }
+}

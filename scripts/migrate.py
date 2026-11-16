@@ -16,7 +16,7 @@ def main():
         ('antennapod','universalpodcast'),
     ]
     TEXT_EXTS = {'.kt','.java','.xml','.gradle','.kts','.md','.json','.yml','.yaml','.txt','.properties','.pro','.html','.js','.sh'}
-    SKIP = {'.git','node_modules','scripts'}
+    SKIP = {'.github', '.git','node_modules','scripts'}
     changed = 0
     for dirpath, dirnames, filenames in os.walk(ROOT):
         dirnames[:] = [d for d in dirnames if d not in SKIP]

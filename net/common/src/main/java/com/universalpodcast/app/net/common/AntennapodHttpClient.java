@@ -20,8 +20,8 @@ import java.util.concurrent.TimeUnit;
 /**
  * Provides access to a HttpClient singleton.
  */
-public class UniversalPodcastHttpClient {
-    private static final String TAG = "UniversalPodcastHttpClient";
+public class AntennapodHttpClient {
+    private static final String TAG = "AntennapodHttpClient";
     private static final int CONNECTION_TIMEOUT = 10000;
     private static final int READ_TIMEOUT = 30000;
     private static final int MAX_CONNECTIONS = 8;
@@ -30,7 +30,7 @@ public class UniversalPodcastHttpClient {
 
     private static volatile OkHttpClient httpClient = null;
 
-    private UniversalPodcastHttpClient() {
+    private AntennapodHttpClient() {
 
     }
 
@@ -99,10 +99,10 @@ public class UniversalPodcastHttpClient {
     }
 
     public static void setCacheDirectory(File cacheDirectory) {
-        UniversalPodcastHttpClient.cacheDirectory = cacheDirectory;
+        AntennapodHttpClient.cacheDirectory = cacheDirectory;
     }
 
     public static void setProxyConfig(ProxyConfig proxyConfig) {
-        UniversalPodcastHttpClient.proxyConfig = proxyConfig;
+        AntennapodHttpClient.proxyConfig = proxyConfig;
     }
 }

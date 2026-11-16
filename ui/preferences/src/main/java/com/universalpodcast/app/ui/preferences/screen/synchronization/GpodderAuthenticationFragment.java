@@ -16,7 +16,7 @@ import androidx.annotation.Nullable;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import androidx.fragment.app.DialogFragment;
 import com.google.android.material.button.MaterialButton;
-import com.universalpodcast.app.net.common.UniversalPodcastHttpClient;
+import com.universalpodcast.app.net.common.AntennapodHttpClient;
 import com.universalpodcast.app.net.sync.serviceinterface.SynchronizationProvider;
 import com.universalpodcast.app.net.sync.serviceinterface.SynchronizationQueue;
 import com.universalpodcast.app.storage.preferences.SynchronizationCredentials;
@@ -125,7 +125,7 @@ public class GpodderAuthenticationFragment extends DialogFragment {
             selectedDevice = null;
             devices = null;
             SynchronizationCredentials.setHosturl(serverUrlText.getText().toString());
-            service = new GpodnetService(UniversalPodcastHttpClient.getHttpClient(),
+            service = new GpodnetService(AntennapodHttpClient.getHttpClient(),
                     SynchronizationCredentials.getHosturl(), SynchronizationCredentials.getDeviceId(),
                     SynchronizationCredentials.getUsername(), SynchronizationCredentials.getPassword());
             getDialog().setTitle(SynchronizationCredentials.getHosturl());

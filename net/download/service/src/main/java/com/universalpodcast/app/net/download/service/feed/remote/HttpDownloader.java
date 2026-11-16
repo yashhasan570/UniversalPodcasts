@@ -10,7 +10,7 @@ import android.util.Log;
 import com.universalpodcast.app.net.common.NetworkUtils;
 import com.universalpodcast.app.model.download.DownloadResult;
 import com.universalpodcast.app.model.download.DownloadRequest;
-import com.universalpodcast.app.net.common.UniversalPodcastHttpClient;
+import com.universalpodcast.app.net.common.AntennapodHttpClient;
 import com.universalpodcast.app.net.common.RedirectChecker;
 import com.universalpodcast.app.net.download.service.R;
 import com.universalpodcast.app.storage.preferences.UserPreferences;
@@ -245,7 +245,7 @@ public class HttpDownloader extends Downloader {
     }
 
     private Response newCall(Request.Builder httpReq) throws IOException {
-        OkHttpClient httpClient = UniversalPodcastHttpClient.getHttpClient();
+        OkHttpClient httpClient = AntennapodHttpClient.getHttpClient();
         try {
             return httpClient.newCall(httpReq.build()).execute();
         } catch (IOException e) {

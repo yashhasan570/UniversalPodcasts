@@ -1,7 +1,7 @@
 package com.universalpodcast.app.ui.episodeslist;
 
 import android.text.TextUtils;
-import com.universalpodcast.app.net.common.UniversalPodcastHttpClient;
+import com.universalpodcast.app.net.common.AntennapodHttpClient;
 import com.universalpodcast.app.storage.database.DBWriter;
 import com.universalpodcast.app.net.common.NetworkUtils;
 import com.universalpodcast.app.model.feed.FeedMedia;
@@ -41,7 +41,7 @@ public abstract class MediaSizeLoader {
                     return;
                 }
 
-                OkHttpClient client = UniversalPodcastHttpClient.getHttpClient();
+                OkHttpClient client = AntennapodHttpClient.getHttpClient();
                 Request.Builder httpReq = new Request.Builder()
                         .url(url)
                         .header("Accept-Encoding", "identity")

@@ -1,6 +1,6 @@
 package com.universalpodcast.app.net.discovery;
 
-import com.universalpodcast.app.net.common.UniversalPodcastHttpClient;
+import com.universalpodcast.app.net.common.AntennapodHttpClient;
 import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.core.SingleOnSubscribe;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
@@ -40,7 +40,7 @@ public class ItunesPodcastSearcher implements PodcastSearcher {
 
             String formattedUrl = String.format(ITUNES_API_URL, encodedQuery);
 
-            OkHttpClient client = UniversalPodcastHttpClient.getHttpClient();
+            OkHttpClient client = AntennapodHttpClient.getHttpClient();
             Request.Builder httpReq = new Request.Builder()
                     .url(formattedUrl);
             List<PodcastSearchResult> podcasts = new ArrayList<>();
@@ -81,7 +81,7 @@ public class ItunesPodcastSearcher implements PodcastSearcher {
         Matcher matcher = pattern.matcher(url);
         final String lookupUrl = matcher.find() ? ("https://itunes.apple.com/lookup?id=" + matcher.group(1)) : url;
         return Single.create(emitter -> {
-            OkHttpClient client = UniversalPodcastHttpClient.getHttpClient();
+            OkHttpClient client = AntennapodHttpClient.getHttpClient();
             Request.Builder httpReq = new Request.Builder().url(lookupUrl);
             try {
                 Response response = client.newCall(httpReq.build()).execute();

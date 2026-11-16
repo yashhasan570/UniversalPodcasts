@@ -23,7 +23,7 @@ import java.util.concurrent.TimeUnit;
 
 import com.universalpodcast.app.ui.preferences.R;
 import com.universalpodcast.app.storage.preferences.UserPreferences;
-import com.universalpodcast.app.net.common.UniversalPodcastHttpClient;
+import com.universalpodcast.app.net.common.AntennapodHttpClient;
 import com.universalpodcast.app.net.common.UrlChecker;
 import com.universalpodcast.app.model.download.ProxyConfig;
 import com.universalpodcast.app.ui.common.ThemeUtils;
@@ -66,7 +66,7 @@ public class ProxyDialog {
                 return;
             }
             setProxyConfig();
-            UniversalPodcastHttpClient.reinit();
+            AntennapodHttpClient.reinit();
             dialog.dismiss();
         });
 
@@ -75,7 +75,7 @@ public class ProxyDialog {
             viewBinding.portText.getText().clear();
             viewBinding.usernameText.getText().clear();
             viewBinding.passwordText.getText().clear();
-            setProxyConfig();
+            viewBinding.proxyTypeSpinner.setText(Proxy.Type.DIRECT.name(), false);
         });
 
         ProxyConfig proxyConfig = UserPreferences.getProxyConfig();
@@ -150,7 +150,7 @@ public class ProxyDialog {
         }
         ProxyConfig config = new ProxyConfig(typeEnum, host, portValue, username, password);
         UserPreferences.setProxyConfig(config);
-        UniversalPodcastHttpClient.setProxyConfig(config);
+        AntennapodHttpClient.setProxyConfig(config);
     }
 
     private final TextWatcher requireTestOnChange = new TextWatcher() {
@@ -255,7 +255,7 @@ public class ProxyDialog {
             }
             SocketAddress address = InetSocketAddress.createUnresolved(host, portValue);
             Proxy.Type proxyType = Proxy.Type.valueOf(type.toUpperCase(Locale.US));
-            OkHttpClient.Builder builder = UniversalPodcastHttpClient.newBuilder()
+            OkHttpClient.Builder builder = AntennapodHttpClient.newBuilder()
                     .connectTimeout(10, TimeUnit.SECONDS)
                     .proxy(new Proxy(proxyType, address));
             if (!TextUtils.isEmpty(username)) {

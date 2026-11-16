@@ -224,7 +224,7 @@ public class Feed implements Serializable {
 
     public void updateFromOther(Feed other) {
         // don't update feed's download_url, we do that manually if redirected
-        // see UniversalPodcastHttpClient
+        // see AntennapodHttpClient
         if (other.imageUrl != null) {
             this.imageUrl = other.imageUrl;
         }

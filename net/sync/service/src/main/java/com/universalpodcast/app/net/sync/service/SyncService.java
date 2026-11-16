@@ -22,7 +22,7 @@ import com.universalpodcast.app.model.feed.FeedItem;
 import com.universalpodcast.app.model.feed.FeedItemFilter;
 import com.universalpodcast.app.model.feed.FeedMedia;
 import com.universalpodcast.app.model.feed.SortOrder;
-import com.universalpodcast.app.net.common.UniversalPodcastHttpClient;
+import com.universalpodcast.app.net.common.AntennapodHttpClient;
 import com.universalpodcast.app.net.common.RedirectChecker;
 import com.universalpodcast.app.net.common.UrlChecker;
 import com.universalpodcast.app.net.download.serviceinterface.FeedUpdateManager;
@@ -360,11 +360,11 @@ public class SyncService extends Worker {
         }
         switch (selectedService) {
             case GPODDER_NET:
-                return new GpodnetService(UniversalPodcastHttpClient.getHttpClient(),
+                return new GpodnetService(AntennapodHttpClient.getHttpClient(),
                         SynchronizationCredentials.getHosturl(), SynchronizationCredentials.getDeviceId(),
                         SynchronizationCredentials.getUsername(), SynchronizationCredentials.getPassword());
             case NEXTCLOUD_GPODDER:
-                return new NextcloudSyncService(UniversalPodcastHttpClient.getHttpClient(),
+                return new NextcloudSyncService(AntennapodHttpClient.getHttpClient(),
                         SynchronizationCredentials.getHosturl(), SynchronizationCredentials.getUsername(),
                         SynchronizationCredentials.getPassword());
             default:

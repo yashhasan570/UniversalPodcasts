@@ -10,7 +10,7 @@ import android.webkit.URLUtil;
 import androidx.annotation.NonNull;
 import com.universalpodcast.app.model.feed.Chapter;
 import com.universalpodcast.app.model.feed.FeedMedia;
-import com.universalpodcast.app.net.common.UniversalPodcastHttpClient;
+import com.universalpodcast.app.net.common.AntennapodHttpClient;
 import com.universalpodcast.app.parser.media.MediaFormatDetector;
 import com.universalpodcast.app.storage.database.DBReader;
 import com.universalpodcast.app.parser.feed.PodcastIndexChapterParser;
@@ -239,7 +239,7 @@ public class ChapterUtils {
             return new CountingInputStream(new BufferedInputStream(context.getContentResolver().openInputStream(uri)));
         } else {
             Request request = new Request.Builder().url(playable.getStreamUrl()).build();
-            Response response = UniversalPodcastHttpClient.getHttpClient().newCall(request).execute();
+            Response response = AntennapodHttpClient.getHttpClient().newCall(request).execute();
             if (response.body() == null) {
                 throw new IOException("Body is null");
             }
@@ -264,7 +264,7 @@ public class ChapterUtils {
         Response response = null;
         try {
             Request request = new Request.Builder().url(url).cacheControl(cacheControl).build();
-            response = UniversalPodcastHttpClient.getHttpClient().newCall(request).execute();
+            response = AntennapodHttpClient.getHttpClient().newCall(request).execute();
             if (response.isSuccessful() && response.body() != null) {
                 return PodcastIndexChapterParser.parse(response.body().string());
             }

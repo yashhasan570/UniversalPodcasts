@@ -42,6 +42,3 @@ If you want to translate Universal Podcasts into another language, you can visit
 
 You can build Universal Podcasts just like any other Android project. Refer to the [instructions](https://github.com/yashhasan570/UniversalPodcasts/Universal Podcasts/blob/develop/CONTRIBUTING.md) for more details.
 
-## Contact
-
-Questions, problem reports or feedback? Reach us on Telegram: [@johnconstantine570](https://t.me/johnconstantine570)

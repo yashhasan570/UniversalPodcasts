@@ -13,7 +13,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,7 +29,6 @@ import com.bumptech.glide.RequestBuilder;
 import com.bumptech.glide.load.resource.bitmap.FitCenter;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
-import com.universalpodcast.app.BuildConfig;
 import com.universalpodcast.app.R;
 import com.universalpodcast.app.event.MessageEvent;
 import com.universalpodcast.app.event.PlayerStatusEvent;
@@ -40,7 +38,6 @@ import com.universalpodcast.app.playback.service.PlaybackServiceStarter;
 import com.universalpodcast.app.storage.database.DBReader;
 import com.universalpodcast.app.storage.preferences.PlaybackPreferences;
 import com.universalpodcast.app.ui.appstartintent.MainActivityStarter;
-import com.universalpodcast.app.ui.appstartintent.MediaButtonStarter;
 import com.universalpodcast.app.ui.appstartintent.OnlineFeedviewActivityStarter;
 import com.universalpodcast.app.ui.chapters.ChapterUtils;
 import com.universalpodcast.app.ui.screen.chapter.ChaptersFragment;
@@ -81,19 +78,8 @@ public class CoverFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         viewBinding = CoverFragmentBinding.inflate(inflater);
         viewBinding.imgvCover.setOnClickListener(v -> {
-            if (BuildConfig.USE_MEDIA3_PLAYBACK_SERVICE) {
-                if (PlaybackServiceInterface.isPlaying) {
-                    PlaybackController.bindToMedia3Service(getActivity(), MediaController::pause);
-                } else if (media != null) {
-                    new PlaybackServiceStarter(getContext(), media)
-                            .callEvenIfRunning(true)
-                            .start();
-                }
-                return;
-            }
-            if (PlaybackServiceInterface.isPlaying
-                    && PlaybackPreferences.getCurrentPlayerStatus() == PlaybackPreferences.PLAYER_STATUS_PLAYING) {
-                getContext().sendBroadcast(MediaButtonStarter.createIntent(getContext(), KeyEvent.KEYCODE_MEDIA_PAUSE));
+            if (PlaybackServiceInterface.isPlaying) {
+                PlaybackController.bindToMedia3Service(getActivity(), MediaController::pause);
             } else if (media != null) {
                 new PlaybackServiceStarter(getContext(), media)
                         .callEvenIfRunning(true)

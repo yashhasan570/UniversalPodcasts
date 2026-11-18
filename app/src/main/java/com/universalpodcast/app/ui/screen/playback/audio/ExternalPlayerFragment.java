@@ -3,7 +3,6 @@ package com.universalpodcast.app.ui.screen.playback.audio;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +13,6 @@ import androidx.fragment.app.Fragment;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
-import com.universalpodcast.app.BuildConfig;
 import com.universalpodcast.app.R;
 import com.universalpodcast.app.activity.MainActivity;
 import com.universalpodcast.app.event.PlayerStatusEvent;
@@ -27,7 +25,6 @@ import com.universalpodcast.app.playback.service.PlaybackServiceInterface;
 import com.universalpodcast.app.playback.service.PlaybackServiceStarter;
 import com.universalpodcast.app.storage.database.DBReader;
 import com.universalpodcast.app.storage.preferences.PlaybackPreferences;
-import com.universalpodcast.app.ui.appstartintent.MediaButtonStarter;
 import com.universalpodcast.app.ui.episodes.ImageResourceUtils;
 import com.universalpodcast.app.ui.screen.playback.PlayButton;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
@@ -81,12 +78,7 @@ public class ExternalPlayerFragment extends Fragment {
         butPlay.setOnClickListener(v -> {
             if (PlaybackServiceInterface.isPlaying
                     && PlaybackPreferences.getCurrentPlayerStatus() == PlaybackPreferences.PLAYER_STATUS_PLAYING) {
-                if (BuildConfig.USE_MEDIA3_PLAYBACK_SERVICE) {
-                    PlaybackController.bindToMedia3Service(getContext(), controller -> controller.pause());
-                } else {
-                    getContext().sendBroadcast(
-                            MediaButtonStarter.createIntent(getContext(), KeyEvent.KEYCODE_MEDIA_PAUSE));
-                }
+                PlaybackController.bindToMedia3Service(getContext(), controller -> controller.pause());
             } else {
                 new PlaybackServiceStarter(getContext(), currentMedia)
                         .callEvenIfRunning(true)

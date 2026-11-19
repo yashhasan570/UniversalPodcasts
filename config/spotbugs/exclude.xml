@@ -13,14 +13,6 @@
         <Class name="com.universalpodcast.app.parser.media.vorbis.VorbisCommentReader"/>
     </Match>
     <Match>
-        <Bug pattern="EQ_CHECK_FOR_OPERAND_NOT_COMPATIBLE_WITH_THIS"/>
-        <Class name="com.universalpodcast.app.model.feed.FeedMedia"/>
-    </Match>
-    <Match>
-        <Bug pattern="EQ_CHECK_FOR_OPERAND_NOT_COMPATIBLE_WITH_THIS"/>
-        <Class name="com.universalpodcast.app.model.playback.RemoteMedia"/>
-    </Match>
-    <Match>
         <Bug pattern="HSC_HUGE_SHARED_STRING_CONSTANT"/>
         <Class name="com.universalpodcast.app.net.ssl.BackportCaCerts"/>
     </Match>
